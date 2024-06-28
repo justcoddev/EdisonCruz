@@ -1,0 +1,37 @@
+<div>
+  <form [formGroup]="FormProduct" (ngSubmit)="addProduct()">
+    <div>
+      <label for="id">ID</label>
+      <input type="text" id="id" formControlName="id">
+    </div>
+
+    <div>
+      <label for="name">Nombre</label>
+      <input type="text" id="name" formControlName="name">
+    </div>
+
+    <div>
+      <label for="logo">Logo</label>
+      <input type="text" id="logo" formControlName="logo">
+    </div>
+
+    <div>
+      <label for="description">Descripción</label>
+      <input type="text" id="description" formControlName="description">
+    </div>
+
+    <div>
+      <label for="date_release">Fecha Liberación</label>
+      <input type="date" id="date_release" formControlName="date_release">
+    </div>
+
+    <div>
+      <label for="date_revision">Fecha Revisión</label>
+      <input type="date" id="date_revision" formControlName="date_revision">
+    </div>
+
+    <button type="submit">Enviar</button>
+
+
+  </form>
+</div>
