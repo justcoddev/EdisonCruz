@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of copiaFiltrarListProducts">
+      <tr *ngFor="let product of copiaFiltrarListProducts.slice(0, registrosPorPaginaSeleccionados)">
         <!-- <td>{{product.id}}</td> -->
         <td><img [src]="product.logo" alt="Logo de {{product.name}}" width="auto" height="50"></td>
         <td>{{product.name}}</td>
@@ -25,4 +25,20 @@
       </tr>
     </tbody>
   </table>
+
+  <div>
+    <p *ngIf="copiaFiltrarListProducts.length > 0">
+      {{ copiaFiltrarListProducts.length }} Resultados
+    </p>
+    <span *ngIf="copiaFiltrarListProducts.length === 0">
+      No hay productos con ese nombre.
+    </span>
+    <label for="registrosPorPagina">Registros por página:</label>
+    <select id="registrosPorPagina" [(ngModel)]="registrosPorPaginaSeleccionados"
+      (ngModelChange)="onChangeRegistrosPorPagina($event)">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+    </select>
+  </div>
 </div>

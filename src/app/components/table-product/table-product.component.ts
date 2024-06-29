@@ -9,11 +9,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./table-product.component.css'],
 })
 export class TableProductComponent implements OnInit {
+  [x: string]: any;
   //Declarar
   // products: Product[] = [];
   listProducts: Product[] = [];
   copiaFiltrarListProducts: Product[] = [];
   busqueda = '';
+  registrosPorPaginaSeleccionados = 5;
   constructor(
     private router: Router,
     private productService: ProductsService
@@ -41,11 +43,16 @@ export class TableProductComponent implements OnInit {
   buscarFiltro() {
     this.copiaFiltrarListProducts = this.listProducts.filter(
       (product) =>
-        product.name.toLowerCase().includes(this.busqueda.toLowerCase()) ||
-        product.description
-          .toLowerCase()
-          .includes(this.busqueda.toLowerCase()) ||
-        product.id.toString().includes(this.busqueda)
+        product.name.toLowerCase().includes(this.busqueda.toLowerCase())
+      // ||
+      //   product.description
+      //     .toLowerCase()
+      //     .includes(this.busqueda.toLowerCase()) ||
+      //   product.id.toString().includes(this.busqueda)
     );
+  }
+
+  onChangeRegistrosPorPagina(value: any) {
+    const registrosPorPagina = value as string;
   }
 }
