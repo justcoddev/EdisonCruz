@@ -7,7 +7,7 @@ import { TableProductComponent } from './components/table-product/table-product.
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AddProductComponent } from './components/add-product/add-product.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, TableProductComponent, AddProductComponent],
@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

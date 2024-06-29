@@ -12,7 +12,8 @@ export class TableProductComponent implements OnInit {
   //Declarar
   // products: Product[] = [];
   listProducts: Product[] = [];
-
+  copiaFiltrarListProducts: Product[] = [];
+  busqueda = '';
   constructor(
     private router: Router,
     private productService: ProductsService
@@ -27,12 +28,24 @@ export class TableProductComponent implements OnInit {
       next: (res: any) => {
         console.log('🆗🆗', res);
         this.listProducts = res.data;
+        this.copiaFiltrarListProducts = [...this.listProducts];
       },
-      error: console.log,
+      error: console.error,
     });
   }
 
   newProduct() {
     this.router.navigate(['/nuevo-producto']);
+  }
+
+  buscarFiltro() {
+    this.copiaFiltrarListProducts = this.listProducts.filter(
+      (product: Product) =>
+        product.name.toLowerCase().includes(this.busqueda.toLowerCase()) ||
+        product.description
+          .toLowerCase()
+          .includes(this.busqueda.toLowerCase()) ||
+        product.id.toString().includes(this.busqueda)
+    );
   }
 }

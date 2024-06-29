@@ -1,7 +1,7 @@
 <div>
-  <input type="text" placeholder="buscar">
-  <button (click)="newProduct()">Agregar</button>
+  <input type="text" placeholder="Search..." [(ngModel)]="busqueda" (input)="buscarFiltro()">
 </div>
+<button (click)="newProduct()">Agregar</button>
 
 <div>
   <table>
@@ -15,9 +15,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of listProducts">
+      <tr *ngFor="let product of copiaFiltrarListProducts">
         <!-- <td>{{product.id}}</td> -->
-        <td><img [src]="product.logo" alt="Logo de {{product.name}}" width="50" height="50"></td>
+        <td><img [src]="product.logo" alt="Logo de {{product.name}}" width="auto" height="50"></td>
         <td>{{product.name}}</td>
         <td>{{product.description}}</td>
         <td>{{product.date_release}}</td>
