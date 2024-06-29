@@ -3,11 +3,20 @@
     <div>
       <label for="id">ID</label>
       <input type="text" id="id" formControlName="id">
+      <span *ngIf=" FormProduct.get('id')?.invalid && FormProduct.get('id')?.touched">
+        <small> ID no válido! Debe tener entre 3 y 10 caracteres.</small>
+      </span>
+      <span *ngIf="idExiste">
+        <small> ID no válido! Este ID ya existe</small>
+      </span>
     </div>
 
     <div>
       <label for="name">Nombre</label>
       <input type="text" id="name" formControlName="name">
+      <span *ngIf=" FormProduct.get('name')?.invalid && FormProduct.get('name')?.touched">
+        <small> ID no válido! Debe tener entre 5 y 100 caracteres.</small>
+      </span>
     </div>
 
     <div>
@@ -18,11 +27,17 @@
     <div>
       <label for="description">Descripción</label>
       <input type="text" id="description" formControlName="description">
+      <span *ngIf=" FormProduct.get('description')?.invalid && FormProduct.get('description')?.touched">
+        <small> ID no válido! Debe tener entre 10 y 200 caracteres.</small>
+      </span>
     </div>
 
     <div>
       <label for="date_release">Fecha Liberación</label>
       <input type="date" id="date_release" formControlName="date_release">
+      <span *ngIf=" FormProduct.get('date_release')?.invalid && FormProduct.get('date_release')?.touched">
+        <small> Fecha no válida! la Fecha debe ser igual o mayor a la fecha actual.</small>
+      </span>
     </div>
 
     <div>
@@ -30,7 +45,7 @@
       <input type="date" id="date_revision" formControlName="date_revision">
     </div>
 
-    <button type="submit">Enviar</button>
+    <button [disabled]="FormProduct.invalid" type="submit">Enviar</button>
 
 
   </form>
