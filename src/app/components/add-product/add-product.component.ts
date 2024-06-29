@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class AddProductComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private productservice: ProductsService
+    private productservice: ProductsService,
+    private router: Router
   ) {
     this.FormProduct = this.formBuilder.group({
       id: ['', [Validators.required]],
@@ -32,5 +34,16 @@ export class AddProductComponent {
       .subscribe((data) => {
         console.log(data);
       });
+
+    //NOTE - despues de guardar navegar a la lista de productos
+    this.closeProduct();
+  }
+
+  closeProduct() {
+    this.router.navigate(['/productos']);
+  }
+
+  cleanForm() {
+    this.FormProduct.reset();
   }
 }
