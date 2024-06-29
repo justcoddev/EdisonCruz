@@ -40,7 +40,7 @@ export class TableProductComponent implements OnInit {
 
   buscarFiltro() {
     this.copiaFiltrarListProducts = this.listProducts.filter(
-      (product: Product) =>
+      (product) =>
         product.name.toLowerCase().includes(this.busqueda.toLowerCase()) ||
         product.description
           .toLowerCase()
