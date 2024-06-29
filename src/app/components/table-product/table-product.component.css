@@ -193,4 +193,11 @@ td {
     border: none;
 
   }
+
+  .tableContainer {
+
+    overflow-x: none;
+
+
+  }
 }
