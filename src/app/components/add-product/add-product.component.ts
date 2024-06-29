@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -11,14 +11,19 @@ import { ProductsService } from 'src/app/services/products.service';
 export class AddProductComponent {
   FormProduct: FormGroup;
   idExiste = false;
+
+  isEditMode = false;
+  productId: string | null = null;
+
   constructor(
     private formBuilder: FormBuilder,
     private productservice: ProductsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.FormProduct = this.formBuilder.group({
       id: [
-        '',
+        { value: '', disabled: this.isEditMode },
         [
           Validators.required,
           Validators.minLength(3),
@@ -80,31 +85,38 @@ export class AddProductComponent {
         this.idExiste = false;
       });
     }
+
+    this.route.paramMap.subscribe((params) => {
+      this.productId = params.get('id');
+      if (this.productId) {
+        this.isEditMode = true;
+        this.loadProductData(this.productId);
+      }
+    });
   }
 
   addProduct() {
-    //NOTE - guardar el producto
     if (this.FormProduct.valid) {
-      const formData = this.FormProduct.getRawValue(); //revisar si es necesario
-      // this.productservice.saveProducts(formData).subscribe((data) => {
-      //   console.log(data);
-      // });
-      this.productservice.verficarId(formData.id).subscribe((existe) => {
-        if (existe) {
-          this.idExiste = existe;
-          console.log('Id ya existe');
-        } else {
-          this.productservice.saveProducts(formData).subscribe((data) => {
-            console.log(data);
+      const formData = this.FormProduct.getRawValue();
+      if (this.isEditMode && this.productId) {
+        this.productservice
+          .updateProducts(this.productId, formData)
+          .subscribe(() => {
+            this.router.navigate(['/productos']);
           });
-          console.log('Formulario valido');
-          //NOTE - despues de guardar navegar a la lista de productos
-          this.closeProduct();
-        }
-      });
+      } else {
+        this.productservice.verficarId(formData.id).subscribe((existe) => {
+          if (existe) {
+            this.idExiste = existe;
+          } else {
+            this.productservice.saveProducts(formData).subscribe(() => {
+              this.router.navigate(['/productos']);
+            });
+          }
+        });
+      }
     } else {
-      this.FormProduct.invalid;
-      console.log('Formulario invalido');
+      console.log('Formulario inválido');
     }
   }
 
@@ -114,5 +126,12 @@ export class AddProductComponent {
 
   cleanForm() {
     this.FormProduct.reset();
+  }
+
+  loadProductData(id: string) {
+    this.productservice.getProductById(id).subscribe((product) => {
+      this.FormProduct.patchValue(product);
+      this.FormProduct.get('id')?.disable(); // Deshabilitar el campo ID
+    });
   }
 }

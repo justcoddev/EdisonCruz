@@ -26,7 +26,12 @@ export class ProductsService {
   }
 
   //Update
-  public updateProducts(id: number, data: any): Observable<any> {
+  // public updateProducts(id: number, data: any): Observable<any> {
+  //   return this.http.put(`${this.productURL}/${id}`, data);
+  // }
+
+  // Update
+  public updateProducts(id: string, data: any): Observable<any> {
     return this.http.put(`${this.productURL}/${id}`, data);
   }
 
@@ -37,5 +42,9 @@ export class ProductsService {
   //verificacion de id
   public verficarId(id: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.productURL}/verification/${id}`);
+  }
+
+  public getProductById(id: string): Observable<Product> {
+    return this.http.get<Product>(`${this.productURL}/${id}`);
   }
 }

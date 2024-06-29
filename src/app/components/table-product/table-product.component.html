@@ -22,6 +22,15 @@
         <td>{{product.description}}</td>
         <td>{{product.date_release}}</td>
         <td>{{product.date_revision}}</td>
+        <td>
+          <div class="dropdown" (click)="toggleDropdown(product.id)">
+            <button class="dropbtn">Acciones</button>
+            <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen(product.id)}">
+              <!-- <a href="#" (click)="editarProduct(product.id)">Editar</a> -->
+              <a (click)="editarProduct(product.id)">Editar</a>
+            </div>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

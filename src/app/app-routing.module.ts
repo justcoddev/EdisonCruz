@@ -16,6 +16,8 @@ const routes: Routes = [
     path: 'nuevo-producto',
     component: AddProductComponent,
   },
+  { path: 'editar-producto/:id', component: AddProductComponent },
+  { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
 
 @NgModule({

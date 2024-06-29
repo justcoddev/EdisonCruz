@@ -2,7 +2,7 @@
   <form [formGroup]="FormProduct" (ngSubmit)="addProduct()">
     <div>
       <label for="id">ID</label>
-      <input type="text" id="id" formControlName="id">
+      <input type="text" id="id" formControlName="id" [disabled]="isEditMode">
       <span *ngIf=" FormProduct.get('id')?.invalid && FormProduct.get('id')?.touched">
         <small> ID no válido! Debe tener entre 3 y 10 caracteres.</small>
       </span>
@@ -44,7 +44,9 @@
       <input type="date" id="date_revision" formControlName="date_revision">
     </div>
 
-    <button [disabled]="FormProduct.invalid" type="submit">Enviar</button>
+    <button [disabled]="FormProduct.invalid" type="submit">
+      {{ isEditMode ? 'Actualizar' : 'Enviar' }}
+    </button>
 
 
   </form>

@@ -16,6 +16,7 @@ export class TableProductComponent implements OnInit {
   copiaFiltrarListProducts: Product[] = [];
   busqueda = '';
   registrosPorPaginaSeleccionados = 5;
+  dropdownOpenMap: { [key: string]: boolean } = {};
   constructor(
     private router: Router,
     private productService: ProductsService
@@ -54,5 +55,17 @@ export class TableProductComponent implements OnInit {
 
   onChangeRegistrosPorPagina(value: any) {
     const registrosPorPagina = value as string;
+  }
+
+  toggleDropdown(productId: string) {
+    this.dropdownOpenMap[productId] = !this.dropdownOpenMap[productId];
+  }
+
+  isDropdownOpen(productId: string): boolean {
+    return this.dropdownOpenMap[productId] || false;
+  }
+
+  editarProduct(id: string) {
+    this.router.navigate(['/editar-producto', id]);
   }
 }
