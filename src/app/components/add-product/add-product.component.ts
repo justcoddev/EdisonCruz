@@ -73,6 +73,7 @@ export class AddProductComponent {
         }
       });
     }
+    //revisar  si es necesario
     const idControl = this.FormProduct.get('id');
     if (idControl) {
       idControl.valueChanges.subscribe(() => {
