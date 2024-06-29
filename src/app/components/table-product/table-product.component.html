@@ -1,49 +1,60 @@
-<div>
-  <input type="text" placeholder="Search..." [(ngModel)]="busqueda" (input)="buscarFiltro()">
-</div>
-<button (click)="newProduct()">Agregar</button>
+<div class="container">
+  <div class="buscar">
+    <input class="search" type="text" placeholder="Search..." [(ngModel)]="busqueda" (input)="buscarFiltro()">
+    <div>
+      <button class="add" (click)="newProduct()">Agregar</button>
+    </div>
+  </div>
 
-<div>
-  <table>
-    <thead>
-      <tr>
-        <th>Logo</th>
-        <th>Nombre del producto</th>
-        <th>Descripción</th>
-        <th>Fecha de liberación</th>
-        <th>Fecha de reestructuración</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of copiaFiltrarListProducts.slice(0, registrosPorPaginaSeleccionados)">
-        <!-- <td>{{product.id}}</td> -->
-        <td><img [src]="product.logo" alt="Logo de {{product.name}}" width="auto" height="50"></td>
-        <td>{{product.name}}</td>
-        <td>{{product.description}}</td>
-        <td>{{product.date_release}}</td>
-        <td>{{product.date_revision}}</td>
-        <td>
-          <div class="dropdown" (click)="toggleDropdown(product.id)">
-            <button class="dropbtn">Acciones</button>
-            <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen(product.id)}">
-              <!-- <a href="#" (click)="editarProduct(product.id)">Editar</a> -->
-              <a (click)="editarProduct(product.id)">Editar</a>
-              <button (click)="confirmDelete(product)">Eliminar</button>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="data">
+    <div class="tableContainer">
+      <table>
+        <thead>
+          <tr>
+            <th>Logo</th>
+            <th>Nombre del producto</th>
+            <th>Descripción</th>
+            <th>Fecha de liberación</th>
+            <th>Fecha de reestructuración</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of copiaFiltrarListProducts.slice(0, registrosPorPaginaSeleccionados)">
+            <!-- <td>{{product.id}}</td> -->
+            <td><img [src]="product.logo" alt="Logo de {{product.name}}" width="auto" height="50"></td>
+            <td>{{product.name}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.date_release}}</td>
+            <td>{{product.date_revision}}</td>
+            <td>
+              <div class="dropdown" (click)="toggleDropdown(product.id)">
 
-  <div>
+                <!-- <button class="dropbtn"> -->
+                <img class="dropbtn" src="../../../assets/dots-vertical.svg" alt="">
+                <!-- </button> -->
+
+                <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen(product.id)}">
+                  <!-- <a href="#" (click)="editarProduct(product.id)">Editar</a> -->
+                  <a (click)="editarProduct(product.id)">Editar</a>
+                  <a (click)="confirmDelete(product)">Eliminar</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="paginators">
     <p *ngIf="copiaFiltrarListProducts.length > 0">
       {{ copiaFiltrarListProducts.length }} Resultados
     </p>
     <span *ngIf="copiaFiltrarListProducts.length === 0">
       No hay productos con ese nombre.
     </span>
-    <label for="registrosPorPagina">Registros por página:</label>
+    <!-- <label for="registrosPorPagina">Registros por página:</label> -->
     <select id="registrosPorPagina" [(ngModel)]="registrosPorPaginaSeleccionados"
       (ngModelChange)="onChangeRegistrosPorPagina($event)">
       <option value="5">5</option>
@@ -51,14 +62,14 @@
       <option value="20">20</option>
     </select>
   </div>
-</div>
 
-
-<!-- Modal de confirmación de eliminación -->
-<div *ngIf="productToDelete" class="modal">
-  <div class="modal-content">
-    <p>¿Estás seguro de que deseas eliminar el producto "{{ productToDelete.name }}"?</p>
-    <button (click)="deleteProduct()">Eliminar</button>
-    <button (click)="cancelDelete()">Cancelar</button>
+  <!-- Modal de confirmación de eliminación -->
+  <div *ngIf="productToDelete" class="modal">
+    <div class="modal-content">
+      <p>¿Estás seguro de que deseas eliminar el producto "{{ productToDelete.name }}"?</p>
+      <button (click)="deleteProduct()">Eliminar</button>
+      <button (click)="cancelDelete()">Cancelar</button>
+    </div>
   </div>
+
 </div>

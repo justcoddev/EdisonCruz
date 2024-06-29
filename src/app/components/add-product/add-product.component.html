@@ -1,6 +1,7 @@
-<div>
+<div class="contenedor">
+  <h2>Formulario de Registro</h2>
   <form [formGroup]="FormProduct" (ngSubmit)="addProduct()">
-    <div>
+    <div class="groupSelect">
       <label for="id">ID</label>
       <input type="text" id="id" formControlName="id" [disabled]="isEditMode">
       <span *ngIf=" FormProduct.get('id')?.invalid && FormProduct.get('id')?.touched">
@@ -11,7 +12,7 @@
       </span>
     </div>
 
-    <div>
+    <div class="groupSelect">
       <label for="name">Nombre</label>
       <input type="text" id="name" formControlName="name">
       <span *ngIf=" FormProduct.get('name')?.invalid && FormProduct.get('name')?.touched">
@@ -19,11 +20,15 @@
       </span>
     </div>
 
-    <div>
+    <div class="groupSelect">
       <label for="logo">Logo</label>
       <input type="text" id="logo" formControlName="logo">
+      <span *ngIf=" FormProduct.get('logo')?.invalid && FormProduct.get('logo')?.touched">
+        <small>Texto no válido! Debe ingresar URL.</small>
+      </span>
     </div>
-    <div>
+
+    <div class="groupSelect">
       <label for="description">Descripción</label>
       <input type="text" id="description" formControlName="description">
       <span *ngIf=" FormProduct.get('description')?.invalid && FormProduct.get('description')?.touched">
@@ -31,24 +36,30 @@
       </span>
     </div>
 
-    <div>
-      <label for="date_release">Fecha Liberación</label>
-      <input type="date" id="date_release" formControlName="date_release">
-      <span *ngIf=" FormProduct.get('date_release')?.invalid && FormProduct.get('date_release')?.touched">
-        <small> Fecha no válida! la Fecha debe ser igual o mayor a la fecha actual.</small>
-      </span>
+
+    <div class="date">
+      <div class="groupSelect">
+        <label for="date_release">Fecha Liberación</label>
+        <input type="date" id="date_release" formControlName="date_release">
+        <span *ngIf=" FormProduct.get('date_release')?.invalid && FormProduct.get('date_release')?.touched">
+          <small> Fecha no válida! la Fecha debe ser igual o mayor a la fecha actual.</small>
+        </span>
+      </div>
+
+      <div class="groupSelect">
+        <label for="date_revision">Fecha Revisión</label>
+        <input type="date" id="date_revision" formControlName="date_revision">
+      </div>
     </div>
 
-    <div>
-      <label for="date_revision">Fecha Revisión</label>
-      <input type="date" id="date_revision" formControlName="date_revision">
+
+    <div class="groupbtn">
+      <button [disabled]="FormProduct.invalid" type="submit" class="submit btn">
+        {{ isEditMode ? 'Actualizar' : 'Enviar' }}
+      </button>
+
+
+      <button (click)="cleanForm() " [disabled]="isEditMode" class="reiniciar btn">Reiniciar</button>
     </div>
-
-    <button [disabled]="FormProduct.invalid" type="submit">
-      {{ isEditMode ? 'Actualizar' : 'Enviar' }}
-    </button>
-
-
   </form>
-  <button (click)="cleanForm()">Reiniciar</button>
 </div>
