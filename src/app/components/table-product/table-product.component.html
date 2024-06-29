@@ -28,6 +28,7 @@
             <div class="dropdown-content" [ngClass]="{'show': isDropdownOpen(product.id)}">
               <!-- <a href="#" (click)="editarProduct(product.id)">Editar</a> -->
               <a (click)="editarProduct(product.id)">Editar</a>
+              <button (click)="confirmDelete(product)">Eliminar</button>
             </div>
           </div>
         </td>
@@ -49,5 +50,15 @@
       <option value="10">10</option>
       <option value="20">20</option>
     </select>
+  </div>
+</div>
+
+
+<!-- Modal de confirmación de eliminación -->
+<div *ngIf="productToDelete" class="modal">
+  <div class="modal-content">
+    <p>¿Estás seguro de que deseas eliminar el producto "{{ productToDelete.name }}"?</p>
+    <button (click)="deleteProduct()">Eliminar</button>
+    <button (click)="cancelDelete()">Cancelar</button>
   </div>
 </div>
