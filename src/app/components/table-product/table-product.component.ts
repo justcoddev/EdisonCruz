@@ -43,14 +43,8 @@ export class TableProductComponent implements OnInit {
   }
 
   buscarFiltro() {
-    this.copiaFiltrarListProducts = this.listProducts.filter(
-      (product) =>
-        product.name.toLowerCase().includes(this.busqueda.toLowerCase())
-      // ||
-      //   product.description
-      //     .toLowerCase()
-      //     .includes(this.busqueda.toLowerCase()) ||
-      //   product.id.toString().includes(this.busqueda)
+    this.copiaFiltrarListProducts = this.listProducts.filter((product) =>
+      product.name.toLowerCase().includes(this.busqueda.toLowerCase())
     );
   }
 
